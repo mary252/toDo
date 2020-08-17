@@ -1,0 +1,99 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.todo{
+  min-height: 50vh;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+}
+
+.page-title{
+  text-align: center;
+  font-size: 30px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.entry-name{
+  color: gray;
+  margin-bottom: 10px;
+
+}
+
+.add-button{
+  background-color: #70a7ff;
+  border: none;
+  min-width: 100px;
+  min-height: 36px;
+  border-radius: 10px;
+  color:#fff
+}
+
+.new-entry-container{
+  padding-bottom: 20px;
+  border-bottom: 1px solid gray;
+  margin-bottom: 20px;
+}
+
+.checkbox-container {
+  margin-right: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 5px;
+  border: solid 1px #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  display: flex;
+}
+
+.checkbox-container.active {
+  border-color: #3e96d2;
+}
+
+.aic {
+  align-items: center;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+body{
+  background-color: white;
+}
+.flex{
+  display: flex;
+}
+.box{
+  flex: 1;
+}
+.middle{
+  flex:1;
+  background-color: #fff;
+}
+
+.mar-10{
+  margin:10px;
+}
+.text {
+  font-size: 20px;
+  padding: 20px;
+}
