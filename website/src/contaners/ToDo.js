@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import{ Checkbox} from "../components/Checkbox"
+import axios from 'axios'
 
 class ToDo extends Component{
     state={
@@ -18,6 +19,18 @@ class ToDo extends Component{
         ]
     }
 
+
+    async componentDidMount() {
+
+        axios.get("http://localhost:3800/todo").then(res=>{
+            this.setState({
+                entries:res.data.results
+            })
+        }).catch(e=>{
+            console.log(e)
+        })
+
+    }
     draw_entries=()=>{
          return this.state.entries.map((entry ,i)=>(
             <div id={i} className="columns is-mobile ">
@@ -27,7 +40,7 @@ class ToDo extends Component{
                     />
             </div>
             <div className="column is-9 ">
-                <label>{entry.name}</label>
+                <label>{entry.comment}</label>
             </div>
             <div className="column is-2 ">
                 <div onClick={()=> this.delete(i)}>
@@ -43,29 +56,55 @@ class ToDo extends Component{
           [input]: event.target.value
         });
       };
-    Add= () =>{
-        let cur_entries=this.state.entries
-        cur_entries.push({
-            done:false,
-            name:this.state.entry_title
-        })
-        this.setState({
-            entries:cur_entries,
-            entry_title:""
+    Add= async () =>{
+
+        axios.post("http://localhost:3800/todo",{
+            comment:this.state.entry_title
+        }).then(res=>{
+            console.log(res)
+            this.setState({
+                entries:res.data.results,
+                entry_title:""
+            })
+        }).catch(e=>{
+            console.log(e)
         })
 
+       
+
+
     }
-    toogle_state = (i) => {
+    toogle_state = async (i) => {
         let cur_entries=this.state.entries
-        cur_entries[i].done=!cur_entries[i].done
+        console.log(cur_entries[i])
+        if(cur_entries[i].done===0){
+            axios.post(`http://localhost:3800/done/${cur_entries[i].id}`).then(res=>{
+                console.log(res)
+            }).catch(e=>{
+                console.log(e)
+            })
+            cur_entries[i].done=1
+        }else{
+            axios.post(`http://localhost:3800/undo/${cur_entries[i].id}`).then(res=>{
+                console.log(res)
+            }).catch(e=>{
+                console.log(e)
+            })
+            cur_entries[i].done=0
+        }
         this.setState({
             entries:cur_entries,
 
         })
       };
-      delete= (i) =>{
-        console.log("heya")
+      delete=async (i) =>{
         let cur_entries=this.state.entries
+
+        axios.delete(`http://localhost:3800/delete/${cur_entries[i].id}`).then(res=>{
+            console.log(res)
+        }).catch(e=>{
+            console.log(e)
+        })
         cur_entries.splice(i, 1);
         this.setState({
             entries:cur_entries,
